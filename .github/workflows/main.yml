@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build Application
-        run: npm build
+        run: npm run build
       - name: Zip Application
         uses: montudor/action-zip@v0.1.0
         with:
