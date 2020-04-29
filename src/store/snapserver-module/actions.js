@@ -5,16 +5,12 @@ const request = axios.create({
   timeout: 1000,
 });
 
-export async function init({ dispatch }) {
+export async function init({ dispatch, commit }) {
   request.interceptors.response.use(
-    (response) => response,
-    (error) => dispatch('onServerRequestFailed', error),
+    (response) => commit('SET_SERVER_NETWORK_STATUS', true) || response,
+    (error) => commit('SET_SERVER_NETWORK_STATUS', false) || error,
   );
   await dispatch('refreshServerState');
-}
-
-export async function onServerRequestFailed({ commit }) {
-  commit('SET_SERVER_NETWORK_STATUS', false);
 }
 
 export async function refreshServerState({ commit }) {
