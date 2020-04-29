@@ -1,6 +1,8 @@
 /* eslint-disable global-require */
 /* eslint-env node */
 
+require('dotenv').config();
+
 /*
  * This file runs in a Node context (it's NOT transpiled by Babel), so use only
  * the ES6 features that are supported by your Node version. https://node.green/
@@ -98,6 +100,12 @@ module.exports = function QuasarConf(/* ctx */) {
       https: false,
       port: 8080,
       open: true, // opens browser window automatically
+      proxy: {
+        '/api': {
+          target: process.env.SERVER_URL || '',
+          changeOrigin: true,
+        },
+      },
     },
 
     // animations: 'all', // --- includes all animations
